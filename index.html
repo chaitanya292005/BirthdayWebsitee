@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Happy Birthday My Love 🤍</title>
+
+<style>
+:root{
+  --bg:#0b0e14;
+  --accent:#ff8fb1;
+  --glow:rgba(255,143,177,.55);
+  --text:#f0f0f5;
+  --muted:#b2b2c2;
+  --pink-light: #ffd1dc;
+  --cake-base: #5d4037;
+  --cake-cream: #fff9c4;
+  --cake-pink: #f06292;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent; overflow-x: hidden;}
+
+body{
+  background: #0b0e14;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text);
+}
+
+/* --- ANIMATED BACKGROUND --- */
+#bg-container {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at center, #1a1f36 0%, #0b0e14 100%);
+  overflow: hidden;
+}
+
+.bg-element {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.2;
+  animation: floatBG linear infinite;
+}
+
+@keyframes floatBG {
+  0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.3; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+/* --- FULLSCREEN JUMPSCARES --- */
+.jumpscare {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+}
+
+.jumpscare-content {
+  text-align: center;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.jumpscare-emoji { font-size: 10rem; display: block; }
+.jumpscare-text { font-size: 3rem; color: white; font-weight: bold; margin-top: 20px; text-shadow: 0 0 20px var(--accent); }
+
+@keyframes popIn {
+  0% { transform: scale(0); }
+  80% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* --- CARD STYLING --- */
+section{
+  min-height:100svh;
+  padding:4.5rem 1.4rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.card{
+  width:100%;
+  max-width:920px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 2.8rem 1.8rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease-out;
+}
+
+.card.show{ opacity: 1; transform: translateY(0); }
+
+h1, h2 { text-align: center; }
+h1 { font-size: clamp(2.4rem, 7vw, 4.5rem); margin-bottom: 1rem; }
+h2 { font-size: clamp(1.9rem, 6vw, 2.8rem); margin-bottom: 1rem; }
+p { font-size: clamp(1.05rem, 4.3vw, 1.2rem); line-height: 1.95; color: var(--muted); margin-bottom: 1.6rem; }
+.glow { color: var(--accent); text-shadow: 0 0 40px var(--glow); }
+.center { text-align: center; }
+
+.action-btn {
+  width: 100%;
+  max-width: 280px;
+  margin: .6rem auto;
+  padding: 1.1rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), #ffb6cc);
+  color: #000;
+  box-shadow: 0 0 45px var(--glow);
+  transition: .35s;
+}
+
+/* --- HUGE CAKE SYSTEM --- */
+.cake-machine {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  margin: 3rem 0;
+}
+
+.layer {
+  position: relative;
+  border-radius: 20px 20px 10px 10px;
+  box-shadow: inset 0 -15px 20px rgba(0,0,0,0.3);
+  animation: dropIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes dropIn {
+  0% { transform: translateY(-600px) scaleY(2); opacity: 0; }
+  60% { transform: translateY(0) scaleY(0.7); opacity: 1; }
+  100% { transform: translateY(0) scaleY(1); }
+}
+
+#cake-base { width: 350px; height: 120px; background: var(--cake-base); z-index: 1; }
+#cake-mid { width: 280px; height: 100px; background: var(--cake-cream); margin-bottom: -10px; z-index: 2; border-top: 5px solid #fff; }
+#cake-top { width: 200px; height: 80px; background: var(--cake-pink); margin-bottom: -10px; z-index: 3; }
+
+#huge-candle {
+  width: 25px;
+  height: 80px;
+  background: linear-gradient(to right, #ffeb3b, #fbc02d);
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(255,235,59,0.5);
+}
+
+.huge-flame {
+  width: 25px;
+  height: 40px;
+  background: #ff6f00;
+  border-radius: 50% 50% 20% 20%;
+  position: absolute;
+  top: -45px;
+  left: 0;
+  animation: flare 0.1s infinite alternate;
+  box-shadow: 0 0 50px #ff9800, 0 0 100px #f44336;
+}
+
+@keyframes flare {
+  from { transform: scale(1) rotate(-2deg); }
+  to { transform: scale(1.3) rotate(2deg); }
+}
+
+#moving-slice {
+  position: fixed;
+  font-size: 6rem;
+  z-index: 20000;
+  cursor: grab;
+  filter: drop-shadow(0 0 30px var(--accent));
+  transition: transform 0.1s;
+  pointer-events: auto;
+}
+
+.hidden { display: none !important; }
+
+.reaction{
+  position:fixed;
+  pointer-events:none;
+  font-size:2.5rem;
+  animation:floatUp 3s ease forwards;
+  z-index: 10001;
+}
+
+@keyframes floatUp{
+  from{opacity:1;transform:scale(1) translateY(0)}
+  to{opacity:0;transform:scale(2) translateY(-200px)}
+}
+</style>
+</head>
+
+<body>
+
+<div id="bg-container"></div>
+
+<!-- Jumpscare Overlays -->
+<div id="jump-hands" class="jumpscare" onclick="hideJumpscare()">
+  <div class="jumpscare-content">
+    <span class="jumpscare-emoji">🤝✨</span>
+    <div class="jumpscare-text">NEVER LETTING GO!</div>
+  </div>
+</div>
+
+<div id="jump-kiss" class="jumpscare" onclick="hideJumpscare()">
+  <div class="jumpscare-content">
+    <span class="jumpscare-emoji">💋😘</span>
+    <div class="jumpscare-text">MWAHHHHH! ❤️</div>
+  </div>
+</div>
+
+<div id="jump-hug" class="jumpscare" onclick="hideJumpscare()">
+  <div class="jumpscare-content">
+    <span class="jumpscare-emoji">🫂🐱</span>
+    <div class="jumpscare-text">SQUEEEEEZE!</div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section>
+  <div class="card center show">
+    <h1 class="glow">I love you, my love 🤍</h1>
+    <p>It’s not just your birthday 🎂✨<br>it’s a special day for <b>you and me</b> as well hehe 😌🤍</p>
+    <button class="action-btn" onclick="scrollNext()">Start 💫</button>
+  </div>
+</section>
+
+<!-- MESSAGE PART 1 -->
+<section>
+  <div class="card">
+    <p>I don’t even know where to begin 🥺, because no amount of words feels enough for you.  
+    I still don’t know what name to give us — but what I do know is that my heart chose you 🤍  
+    long before my mind could catch up.</p>
+
+    <p>You’re the first girl I’ve ever let this close to me… 🫶  
+    and honestly, you’re the last one I ever want this close.  
+    There’s something about you that just fits ✨ —  
+    like you walked into my life and quietly claimed a place  
+    that was always meant to be yours.</p>
+  </div>
+</section>
+
+<!-- MESSAGE PART 2 -->
+<section>
+  <div class="card">
+    <p>Every time I talk to you, the world feels softer 🌙  
+    My mind slows down. My heart feels calm 😌</p>
+
+    <p>And don’t even get me started on your voice 🥹 —  
+    I know you hate it, but to me?  
+    It’s addictive 💕 It’s warm. It’s gentle. It’s comforting.  
+    I could listen to you talk for hours  
+    and still want more.</p>
+
+    <p>You’re such a cutie 😭💞  
+    and you don’t even realize the power you have over me.</p>
+  </div>
+</section>
+
+<!-- MESSAGE PART 3 -->
+<section>
+  <div class="card">
+    <p>I love you 🤍  
+    Deeply. Effortlessly.  
+    In a way that feels natural and right ✨</p>
+
+    <p>I don’t want to lose you, not at any cost 🥺  
+    You’re not just someone I care about…  
+    you’re someone I choose 💗</p>
+
+    <p>Sometimes I catch myself smiling for no reason 😊  
+    and then I realize it’s because of you.  
+    You live in my thoughts more than you know.  
+    You make my heart feel full  
+    in the quietest, most beautiful way.</p>
+  </div>
+</section>
+
+<!-- MESSAGE PART 4 -->
+<section>
+  <div class="card">
+    <p>On your birthday 🎂🎉,  
+    I wish you all the love you deserve 💖  
+    all the confidence you sometimes forget you have ✨  
+    and all the happiness your heart can hold 🤍</p>
+
+    <p>No matter what happens —  
+    no matter where life takes us 🌍 —  
+    I promise you this:</p>
+
+    <p class="glow">I’ll always be with you 🫶</p>
+
+    <p>Through your smiles 😊  
+    your silence 🤍  
+    your storms ⛈️  
+    and your shine ✨ —  
+    you’ll always have me.</p>
+  </div>
+</section>
+
+<!-- INTERACTIVE LOVE -->
+<section>
+  <div class="card center">
+    <h2 class="glow">Come here 🤍</h2>
+    <button class="action-btn" onclick="triggerJump('hands')">Hold Hands 🤝</button>
+    <button class="action-btn" onclick="triggerJump('kiss')">Kiss 💋</button>
+    <button class="action-btn" onclick="triggerJump('hug')">Hug 🫂</button>
+    <p class="hint">tap… feel it… this is us 💞</p>
+  </div>
+</section>
+
+<!-- CAKE SECTION -->
+<section id="cake-section">
+  <div class="card center">
+    <h2 class="glow" id="cake-status">Let's Bake Your Giant Cake 🎂</h2>
+    
+    <div class="cake-machine">
+      <div id="huge-candle" class="hidden"><div class="huge-flame" id="flame"></div></div>
+      <div id="cake-top" class="layer hidden"></div>
+      <div id="cake-mid" class="layer hidden"></div>
+      <div id="cake-base" class="layer hidden"></div>
+    </div>
+
+    <div id="cake-controls">
+      <button class="action-btn" onclick="buildCake(this, 'base')">Drop The Base 🍞</button>
+      <button class="action-btn hidden" onclick="buildCake(this, 'mid')">Add Strawberry Cream 🍦</button>
+      <button class="action-btn hidden" onclick="buildCake(this, 'top')">Place The Top 🍓</button>
+      <button class="action-btn hidden" id="btn-candle" onclick="lightCandle()">Light The Huge Candle 🕯️</button>
+      <button class="action-btn hidden" id="btn-cut" onclick="startFeeding()">Cut A Piece For Her 🔪</button>
+    </div>
+  </div>
+</section>
+
+<!-- END -->
+<section>
+  <div class="card center">
+    <h2 class="glow">You’re my peace 🕊️</h2>
+    <p>You’re also… my favorite distraction 😌💕</p>
+    <p>Happy Birthday, my love 🤍  
+    Today is all yours…  
+    and so am I.</p>
+    <button class="action-btn" onclick="finale()">Forever 🤍</button>
+  </div>
+</section>
+
+<div id="moving-slice" class="hidden">🍰</div>
+
+<script>
+const cards=document.querySelectorAll('.card');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) entry.target.classList.add('show');
+  });
+}, { threshold: 0.1 });
+cards.forEach(card => observer.observe(card));
+
+function scrollNext(){
+  window.scrollBy({top:window.innerHeight,behavior:'smooth'});
+}
+
+function initBG() {
+  const container = document.getElementById('bg-container');
+  const items = ['🐱', '🤍', '💗', '🌸', '🐾', '✨'];
+  for(let i=0; i<30; i++) {
+    const el = document.createElement('div');
+    el.className = 'bg-element';
+    el.textContent = items[Math.floor(Math.random()*items.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.fontSize = (Math.random() * 20 + 20) + 'px';
+    el.style.animationDuration = (Math.random() * 10 + 10) + 's';
+    el.style.animationDelay = (Math.random() * 10) + 's';
+    container.appendChild(el);
+  }
+}
+initBG();
+
+// CAKE LOGIC
+function buildCake(btn, part) {
+  document.getElementById('cake-' + part).classList.remove('hidden');
+  btn.classList.add('hidden');
+  const nextBtn = btn.nextElementSibling;
+  if(nextBtn) nextBtn.classList.remove('hidden');
+  
+  // Interaction Pop
+  for(let i=0; i<10; i++){
+    const r = document.createElement('div');
+    r.className = 'reaction';
+    r.textContent = '✨';
+    r.style.left = (50 + (Math.random()*20-10)) + 'vw';
+    r.style.top = '70vh';
+    document.body.appendChild(r);
+    setTimeout(()=>r.remove(), 1000);
+  }
+}
+
+function lightCandle() {
+  document.getElementById('huge-candle').classList.remove('hidden');
+  document.getElementById('btn-candle').classList.add('hidden');
+  document.getElementById('cake-status').innerText = "Make a wish, my love... 🕯️";
+  
+  setTimeout(() => {
+    document.getElementById('flame').style.display = 'none';
+    document.getElementById('cake-status').innerText = "Wish made! Now feed her ✨";
+    document.getElementById('btn-cut').classList.remove('hidden');
+  }, 4000);
+}
+
+function startFeeding() {
+  const slice = document.getElementById('moving-slice');
+  slice.classList.remove('hidden');
+  document.getElementById('btn-cut').style.display = 'none';
+  document.getElementById('cake-status').innerText = "Open wide, my love! 👄";
+  
+  const moveSlice = (e) => {
+    const x = e.clientX || e.touches[0].clientX;
+    const y = e.clientY || e.touches[0].clientY;
+    slice.style.left = (x - 50) + 'px';
+    slice.style.top = (y - 50) + 'px';
+    
+    if(y < 150) {
+      eatEffect(x, y);
+      window.removeEventListener('mousemove', moveSlice);
+      window.removeEventListener('touchmove', moveSlice);
+    }
+  };
+  window.addEventListener('mousemove', moveSlice);
+  window.addEventListener('touchmove', moveSlice);
+}
+
+function eatEffect(x, y) {
+  const slice = document.getElementById('moving-slice');
+  slice.classList.add('hidden');
+  for(let i=0; i<8; i++) {
+    const nom = document.createElement('div');
+    nom.className = 'reaction';
+    nom.textContent = ['😋','💓','✨','🧁'][Math.floor(Math.random()*4)];
+    nom.style.left = x + 'px';
+    nom.style.top = y + 'px';
+    document.body.appendChild(nom);
+    setTimeout(() => nom.remove(), 2000);
+  }
+  document.getElementById('cake-status').innerText = "You're the sweetest thing ever 🤍";
+  setTimeout(scrollNext, 2500);
+}
+
+function triggerJump(type) {
+  const id = 'jump-' + type;
+  const el = document.getElementById(id);
+  el.style.display = 'flex';
+  const emoji = type === 'hands' ? '🤝' : type === 'kiss' ? '💋' : '🫂';
+  for(let i=0; i<30; i++) {
+    setTimeout(() => {
+      const r = document.createElement('div');
+      r.className = 'reaction';
+      r.textContent = emoji;
+      r.style.left = Math.random() * 100 + 'vw';
+      r.style.top = Math.random() * 100 + 'vh';
+      document.body.appendChild(r);
+      setTimeout(() => r.remove(), 2000);
+    }, i * 50);
+  }
+  setTimeout(() => { el.style.display = 'none'; }, 2500);
+}
+
+function hideJumpscare() {
+  document.querySelectorAll('.jumpscare').forEach(el => el.style.display = 'none');
+}
+
+function finale(){
+  for(let i=0; i<50; i++) {
+    setTimeout(() => {
+      const r = document.createElement('div');
+      r.className = 'reaction';
+      r.textContent = ['🤍','🐱','✨','💖'][Math.floor(Math.random()*4)];
+      r.style.left = Math.random() * 100 + 'vw';
+      r.style.top = Math.random() * 100 + 'vh';
+      document.body.appendChild(r);
+      setTimeout(() => r.remove(), 3000);
+    }, i * 30);
+  }
+  setTimeout(() => alert("I’m yours. Always 🤍"), 500);
+}
+</script>
+
+</body>
+</html>
